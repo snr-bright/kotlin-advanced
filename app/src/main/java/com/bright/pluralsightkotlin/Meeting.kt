@@ -2,12 +2,14 @@ package com.bright.pluralsightkotlin
 
 import java.lang.IllegalArgumentException
 
-class Meeting {
+open class Meeting(val meetingName: String, val location: Location = Location()) {
+
+    //MARK: secondary constructor
+//    constructor(meetingName: String, location: Location) : this(meetingName) {
+//        this.location = location
+//    }
 
     private val logger = Logger()
-
-    //mutable
-    var meetingName: String = ""
 
     //MARK: dummy to add participant
     fun addNameOrParticipant(participant: Participant) {
@@ -21,30 +23,7 @@ class Meeting {
         return true
     }
 
-    protected fun verifyMeeting() {
-
+    protected open fun verifyMeeting() {
+        print("Verify meeting")
     }
-
-}
-
-//MARK: external class
-class Participant {
-    var name: Name = Name()
-    var email = ""
-
-    //MARK: accessible the name property
-    val participantName
-        get() = name.name
-
-    val canonicalEmail
-        get() = email.toUpperCase()
-}
-
-//MARK: validate a filed using class
-class Name {
-    var name: String = ""
-        set(value) {
-            if (value.isNullOrEmpty()) throw IllegalArgumentException()
-            field = value
-        }
 }
